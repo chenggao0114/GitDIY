@@ -1,0 +1,9 @@
+# Check it doesn't work in a not initialized directory.
+>
+Please enter a command.
+<<<
+> status
+Not in an initialized Gitlet directory.
+<<<
+> init
+<<<

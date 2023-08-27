@@ -1,0 +1,85 @@
+# Check that we can write status correctly.
+> init
+<<<
+> status
+=== Branches ===
+*master
+
+=== Staged Files ===
+
+=== Removed Files ===
+
+=== Modifications Not Staged For Commit ===
+
+=== Untracked Files ===
+
+<<<
++ wug.txt wug.txt
+> add wug.txt
+<<<
+> status
+=== Branches ===
+*master
+
+=== Staged Files ===
+wug.txt
+
+=== Removed Files ===
+
+=== Modifications Not Staged For Commit ===
+
+=== Untracked Files ===
+
+<<<
+- wug.txt wug.txt
+> rm wug.txt
+<<<
+> status
+=== Branches ===
+*master
+
+=== Staged Files ===
+
+=== Removed Files ===
+
+=== Modifications Not Staged For Commit ===
+
+=== Untracked Files ===
+
+<<<
++ wug.txt wug.txt
+> add wug.txt
+<<<
+> commit "added wug"
+<<<
+> status
+=== Branches ===
+*master
+
+=== Staged Files ===
+
+=== Removed Files ===
+
+=== Modifications Not Staged For Commit ===
+
+=== Untracked Files ===
+
+<<<
++ notwug.txt notwug.txt
+> add notwug.txt
+<<<
+> commit "added wugs"
+<<<
++ wug.txt notwug.txt
+> add wug.txt
+<<<
+> commit "changed wug"
+<<<
+- notwug.txt notwug.txt
+> rm notwug.txt
+<<<
+> commit "removed notwug"
+<<<
+> commit "removed notwug2"
+No changes added to the commit.
+<<<

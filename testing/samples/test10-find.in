@@ -1,0 +1,32 @@
+# A simple test of adding, committing, modifying, and checking out.
+> init
+<<<
++ wug.txt wug.txt
+> add wug.txt
+<<<
+> commit "added wug"
+<<<
++ wug.txt notwug.txt
+# Must change
+> checkout -- wug.txt
+<<<
+= wug.txt wug.txt
++ notwug.txt notwug.txt
+> add notwug.txt
+<<<
+> commit "added wugs"
+<<<
+D UID "[a-f0-9]+"
+D HEADER "commit (${UID})"
+> find "added wug"
+${UID}
+
+<<<*
+> find "added wugs"
+${UID}
+
+<<<*
+> find "added wugss"
+Found no commit with that message.
+
+<<<*

@@ -1,0 +1,146 @@
+Gitlet Design Document
+----------------------
+
+
+Classes and Data Structures
+---------------------------
+** Add **
+This class adds files. It also contains how to add a specific file with its sha1 id.
+
+** Blob **
+This class sets a small blob part in gitlet setting. Very trivial.
+
+** Branch **
+This class sets a branch part in Gitlet setting, with some built-in methods to do with branches processing.
+
+** Checkout **
+This class does checkout function in gitlet.
+
+** Cmt ** 
+Gitlet commit function.
+
+** Command ** 
+The superclass for all gitlet functions with some built-in methods of outputting commits.
+
+** Commit **
+It is the commit class, a small part in Gitlet setting. Notice it is not the commit function.
+
+** CreateBranch **
+Gitlet branch function. With the built-in methods of branch, it is very easy to implement.
+
+** Find **
+Gitlet find function. A trivial id search loop.
+
+** Folder **
+The folder of some objects in a gitlet setting. Also provides some methods related to transform back from sha1 ids to files/commits/anything else.
+
+** GlobalLog **
+Gitlet global-log function. Similar to log function.
+
+** Init ** 
+Gitlet init function.
+
+** Log **
+Gitlet log function. Output many lines with specific formats.
+
+** Main **
+The main class! It judges what is inputted and call the corresponding method.
+
+** Waste **
+A auxillary class to save the gitlet version. Using serialized sha1 id.
+
+** Merge **
+The merge function in gitlet.
+
+** Reset **
+The reset function in gitlet.
+
+** Rm **
+Gitlet rm function.
+
+** Status **
+Gitlet status function.
+
+** Tree **
+The tree part in a gitlet setting. Essentially a map from id string to id string.
+
+Algorithms
+----------
+** Add **
+1. run: Run part (stage a file). 
+2. addHelper: A helper function to add a blob to a file.
+
+** Blob **
+It is a container containing strings as contents. Provide a public method to get it.
+
+** Branch **
+1. Pointer folder constructor and a public method to get it.
+2. exists: Check the existence of a branch.
+3. change: change contents of sha1 id into a branch.
+4. create: create a new branch.
+
+** Checkout **
+1. checkout: checkout to id and file.
+2. niceCheckout: only use arg branch because the id is confirmed.
+3. helper: checkout to a branch.
+4. checkoutAll: checkout all commits with certain sha1 code.
+
+** Cmt ** 
+1. Run: Just the run part. Easy!
+
+** Command ** 
+1. Contains some fields useful related to many folders to track gitlet progress.
+2. helper: a date output helper. Useful.
+
+** Commit **
+Serializable class contains message, time stamp, tree, parent id, merge id, merge messages filed.
+
+** CreateBranch **
+1. run: just the run part since the branch methods does most of the work.
+
+** Find **
+1. run: just the run part, A simple commit search loop.
+
+** Folder **
+1. A content file field.
+2. ifInit: check if a folder exists (if initialized).
+3. hashBack, idBack, sha1Back: transform (deserialize) sha1 back to the original file with different formats,
+4. save: save bytes.
+
+** GlobalLog **
+1. run: Just the run part.
+
+** Init ** 
+1. run: do initialization work.
+2. wCommit: write a full commit with some files. Return the id of the commit.
+
+** Log **
+1. run: just the run part.
+
+** Main **
+1. start: kudge what is the input is and call the right method. (divided intro several parts for passing style check)
+2. checkNum: check if the number of input args is correct.
+
+** Merge **
+The merge function in gitlet.
+
+** Reset **
+1. run: just the run part.
+
+** Rm **
+1. run: just the run part. With a hleper.
+
+** Status **
+1. The run part is divided into 5 parts. Easy but detailed & complicated work. Write down the Branches, Staged Files, Removed Files. Modifications Not Staged For Commit, Untracked Files part.
+
+** Tree **
+1. _map Filed as a Hashmap<String, String> and a protected method to get it,
+
+Persistence
+-----------
+It is very visible from our structure. 
+Firstly, the main part each time processes only one gitlet function, and each function is independent.
+Secondly, if you see the Command class, you see that each time we call Main class, some useful fields will be refreshed with respect to the true status of the .gitlet folder. Also, the .gitlet folder changes but our code doesn't. The only thing you need to do is to handle all situations well.
+
+The serializable class (Folder, Blob, Tree, Commits, Waste) also helps. Write them to disk and the Command class reads them each time. You can see that I save them in different sub-directories.
+
